@@ -1,7 +1,8 @@
-class Triangle<out T : Number>(val a: T, val b: T, val c: T) {
+class Triangle<out T : Number>(private val a: T, private val b: T, private val c: T) {
     init{
-        testing()
+        require (testZeros() && testInequalityViolation())
     }
+
     val isEquilateral: Boolean = a == b && a == c
     val isIsosceles: Boolean = a == b || a == c || b == c
     val isScalene: Boolean = a != b && a != c
@@ -15,11 +16,5 @@ class Triangle<out T : Number>(val a: T, val b: T, val c: T) {
         val b1 = b.toInt()
         val c1 = c.toInt()
         return !(a1 > b1 + c1 || b1 > a1 + c1 || c1 > a1 + b1)
-    }
-
-    private fun testing() {
-        if (!(testZeros() && testInequalityViolation())) {
-            throw IllegalArgumentException()
-        }
     }
 }
