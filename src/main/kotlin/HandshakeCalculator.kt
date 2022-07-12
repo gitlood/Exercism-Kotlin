@@ -1,33 +1,33 @@
+import java.lang.Integer.toBinaryString
+
 object HandshakeCalculator {
-    private val signals : MutableMap<Int, Signal> = setupSignals()
+    private val signals = setupSignals()
     fun calculateHandshake(number: Int): List<Signal> {
         val handshake: MutableList<Signal> = mutableListOf()
-        var keys: MutableSet<Int> = signals.keys
-        var binary: Int = Integer.parseInt(Integer.toBinaryString(number))
-            while (binary >= 10000) {
-                binary -= 10000
-                keys = keys.reversed().toMutableSet()
+        var binary = toBinaryString(number).toCharArray().reversed()
+        var reverse = false
+        if (binary.size > 4) {
+            reverse = true
+            binary = binary.subList(0, 4)
         }
-        if (signals.containsKey(binary)) {
-            signals[binary]?.let { handshake.add(it) }
-        } else {
-            (keys).forEach {
-                if (it <= binary) {
-                    signals[it]?.let { it1 ->
-                        handshake.add(it1)
-                        binary -= it
-                    }
-                }
+        for (i in binary.indices) {
+            if (binary[i] == '1') {
+                handshake.add(signals[i])
             }
         }
-        return handshake
+        return if (reverse) {
+            handshake.reversed()
+        } else {
+            handshake
+        }
     }
 
-    private fun setupSignals(): MutableMap<Int, Signal> {
-        return mutableMapOf(
-        1 to Signal.WINK,
-        10 to Signal.DOUBLE_BLINK,
-        100 to Signal.CLOSE_YOUR_EYES,
-        1000 to Signal.JUMP)
+    private fun setupSignals(): List<Signal> {
+        return listOf(
+            Signal.WINK,
+            Signal.DOUBLE_BLINK,
+            Signal.CLOSE_YOUR_EYES,
+            Signal.JUMP
+        )
     }
 }
