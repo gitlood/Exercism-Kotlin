@@ -5,11 +5,8 @@ object HandshakeCalculator {
         val handshake: MutableList<Signal> = mutableListOf()
         val binary = toBinaryString(number).toCharArray().reversed()
 
-        binary.indices.forEach {
-            if (it < 4 && binary[it] == '1') {
-                handshake.add(signals()[it])
-            }
-        }
+        binary.indices.filter{it < 4 && binary[it] == '1'}
+            .forEach{handshake.add(signals()[it])}
         return if (binary.size > 4) {
             handshake.reversed()
         } else {
