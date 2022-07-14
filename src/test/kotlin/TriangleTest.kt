@@ -1,4 +1,3 @@
-import org.junit.Ignore
 import org.junit.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
@@ -9,17 +8,17 @@ class TriangleTest {
     fun `equilateral - all sides are equal`() {
         assertTrue(Triangle(2, 2, 2).isEquilateral)
     }
-
+    
     @Test
     fun `equilateral - any side is unequal`() {
         assertFalse(Triangle(2, 3, 2).isEquilateral)
     }
-
+    
     @Test
     fun `equilateral - no sides are equal`() {
         assertFalse(Triangle(5, 4, 6).isEquilateral)
     }
-
+    
     @Test(expected = IllegalArgumentException::class)
     fun `equilateral - all zero sides is not a triangle`() {
         assertFalse(Triangle(0, 0, 0).isEquilateral)
@@ -44,7 +43,7 @@ class TriangleTest {
     fun `isosceles - first and last sides are equal`() {
         assertTrue(Triangle(4, 3, 4).isIsosceles)
     }
-
+    
     @Test
     fun `isosceles - equilateral triangles are also isosceles`() {
         assertTrue(Triangle(4, 4, 4).isIsosceles)
@@ -99,5 +98,4 @@ class TriangleTest {
     fun `scalene - sides may be floats`() {
         assertTrue(Triangle(0.5, 0.4, 0.6).isScalene)
     }
-
 }
