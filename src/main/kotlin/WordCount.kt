@@ -6,7 +6,6 @@ object WordCount {
             .replace(","," ")
             .replace("[^A-Za-z0-9 ']".toRegex(),"")
             .replace("\n","")
-            .trim()
             .splitToSequence(' ')
             .filter { it.isNotEmpty() }
             .toList().toMutableList()
@@ -19,9 +18,9 @@ object WordCount {
 
         words.forEach{ word ->
             if (!wordMap.containsKey(word)) {
-                wordMap[word.lowercase()] = 1
+                wordMap[word] = 1
             } else {
-                wordMap[word.lowercase()] = wordMap[word]!!.inc()
+                wordMap[word] = wordMap[word]!!.inc()
             }
         }
         return wordMap
